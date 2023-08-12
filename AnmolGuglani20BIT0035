@@ -1,0 +1,58 @@
+//This is a binary tree program, takes input of nodes, constructs a binary tree and prints inorder traversal of the tree.
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int i=1;
+class Node{
+    public: 
+    int data;
+    Node* left;
+    Node* right;
+    
+    Node(int d){
+        data = d;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+void makeTree(Node* node, vector<int> &nodes){
+    if(i==nodes.size()) return;
+    
+    Node* left = new Node(nodes[i]);
+    i++;
+    Node* right = new Node(nodes[i]);
+    i++;
+    
+    node-> left = left;
+    node-> right = right;
+    
+    makeTree(left, nodes);
+    makeTree(right, nodes);
+}
+
+void printTree(Node* ans){
+    if(ans == NULL) return;
+    printTree(ans-> left);
+    cout<<ans-> data<<" ";
+    printTree(ans-> right);
+}
+
+int main() {
+    int n;
+    cin>>n;
+    
+    vector<int> nodes;
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        nodes.push_back(x);
+    }
+    
+    Node* ans = new Node(nodes[0]);
+    makeTree(ans, nodes);
+    
+    printTree(ans);
+    return 0;
+}
